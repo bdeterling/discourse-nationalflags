@@ -9,6 +9,7 @@ enabled_site_setting :nationalflag_enabled
 PLUGIN_NAME = "discourse-nationalflags"
 
 DiscoursePluginRegistry.serialized_current_user_fields << "nationalflag_iso"
+DiscoursePluginRegistry.serialized_current_user_fields << "location"
 
 after_initialize do
   public_user_custom_fields_setting = SiteSetting.public_user_custom_fields
@@ -28,6 +29,9 @@ after_initialize do
   if SiteSetting.nationalflag_enabled then
     add_to_serializer(:post, :user_signature, false) {
       object.user.custom_fields['nationalflag_iso']
+    }
+    add_to_serializer(:post, :user_location, false) {
+      object.user.user_profile.location
     }
 
     # I guess this should be the default @ discourse. PR maybe?

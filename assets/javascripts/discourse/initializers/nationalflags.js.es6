@@ -12,24 +12,40 @@ function initializeNationalFlags(api, siteSettings) {
   }
 
   api.decorateWidget('poster-name:after', dec => {
-    let result = 'none';
+    let flag = 'none';
+    let location = '';
 
     if (dec.attrs && dec.attrs.userCustomFields && dec.attrs.userCustomFields.nationalflag_iso) {
-      result = dec.attrs.userCustomFields.nationalflag_iso;
+      flag = dec.attrs.userCustomFields.nationalflag_iso;
       // Ember.Logger.debug(result)
     }
 
-    if (!result || result === 'none') {
+    location = dec.getModel().get('user_location');
+
+    if (!flag || flag === 'none') {
       // Ember.Logger.debug('NOT FOUND!')
+      if (location && location !== '') {
+        return dec.h('span.nationalflag-location', location);
+      }
       return;
     }
 
-    return dec.h('img', {
-      className: "nationalflag-post",
-      attributes: {
-        src: "/plugins/discourse-nationalflags/images/nationalflags/" + result + ".png"
-      }
-    });
+    if (!location || location === '') {
+      return dec.h('img', {
+        className: "nationalflag-post",
+        attributes: {
+          src: "/plugins/discourse-nationalflags/images/nationalflags/" + flag + ".png"
+        }
+      });
+    } else {
+      return dec.h('div.nationalflag-container', [
+        dec.h('img', {
+          className: "nationalflag-post",
+          attributes: { src: "/plugins/discourse-nationalflags/images/nationalflags/" + flag + ".png" }
+        }),
+        dec.h('span.nationalflag-location', location)
+      ]);
+    }
   });
 }
 

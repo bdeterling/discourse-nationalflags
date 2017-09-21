@@ -1,5 +1,12 @@
 {{#if model.custom_fields.nationalflag_iso}}
   <div>
     <img class="nationalflag-usersummary" src="/plugins/discourse-nationalflags/images/nationalflags/{{model.custom_fields.nationalflag_iso}}.png" />
+    {{#if model.location}}
+      <span class="nationalflag-location">{{model.location}}</span>
+    {{/if}}
   </div>
+{{else}}
+  {{#if model.location}}
+    <div>{{model.location}}</div>
+  {{/if}}
 {{/if}}
