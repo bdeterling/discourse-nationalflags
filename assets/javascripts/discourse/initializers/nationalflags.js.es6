@@ -25,18 +25,20 @@ function initializeNationalFlags(api, siteSettings) {
     if (!flag || flag === 'none') {
       // Ember.Logger.debug('NOT FOUND!')
       if (location && location !== '') {
-        return dec.h('span.nationalflag-location', location);
+        return dec.h('div.nationalflag-container', [ dec.h('span.nationalflag-location', location) ] );
       }
       return;
     }
 
     if (!location || location === '') {
-      return dec.h('img', {
-        className: "nationalflag-post",
-        attributes: {
-          src: "/plugins/discourse-nationalflags/images/nationalflags/" + flag + ".png"
-        }
-      });
+      return dec.h('div.nationalflag-container', [
+        dec.h('img', {
+          className: "nationalflag-post",
+          attributes: {
+            src: "/plugins/discourse-nationalflags/images/nationalflags/" + flag + ".png"
+          }
+        })
+      ]);
     } else {
       return dec.h('div.nationalflag-container', [
         dec.h('img', {
