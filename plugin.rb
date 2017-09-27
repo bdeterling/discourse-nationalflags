@@ -2,7 +2,7 @@
 # about: Display National Flags from User's home countries.
 # version: 1.0.0
 # author: Neil Ebrey <neil.ebrey@gmail.com>
-# url: https://github.com/Ebsy/discourse-nationalflags
+# url: https://github.com/bdeterling/discourse-nationalflags
 
 enabled_site_setting :nationalflag_enabled
 
